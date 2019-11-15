@@ -13,7 +13,7 @@ class App extends Component {
         complite: false
       },
       { name: "Take a walk", id: "uyu5i-zqbgrHj2u0ezwq9", complite: false },
-      { name: "Buy new phone", id: "BLZMqDg34GIUWYq-hello" ,complite : false}
+      { name: "Buy new phone", id: "BLZMqDg34GIUWYq-hello", complite: false }
     ],
     newtask: ""
   };
@@ -60,15 +60,11 @@ class App extends Component {
             forButton={this.addTaskInTaskList}
           />
           <hr className="my-2" />
-          {this.state.tasklist.map(task => (
-            <TaskList
-              name={task.name}
-              key={task.id}
-              status={task.complite}
-              forDelete={() => this.deleteTask(task.id)}
-              forDone={() => this.doneTask(task.id)}
-            />
-          ))}
+          <TaskList
+            tasks={this.state.tasklist}
+            forDelete={this.deleteTask}
+            forDone={this.doneTask}
+          />
         </div>
       </div>
     );

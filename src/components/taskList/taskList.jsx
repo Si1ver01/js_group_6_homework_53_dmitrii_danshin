@@ -1,23 +1,31 @@
 import React from "react";
+import TaskItem from "./taskListItem/taskListItem.jsx";
 
 export default props => {
-  let bg = "d-flex align-items-center my-1 rounded p-1 border ";
-  props.status
-    ? (bg += "alert-success border-success")
-    : (bg += "alert-secondary border-secondary");
+  const complitedCount = props.tasks.reduce((total, element) => {
+    if (element.complite) {
+      total++;
+    }
+    return total;
+  }, 0);
 
   return (
-    <div className={bg}>
-      <p className="flex-grow-1 mb-0 pl-2">{props.name}</p>
+    <div className="d-flex flex-column">
+      <p className="text-center mt-auto mb-1 text-secondary">
+        Complited {complitedCount} from {props.tasks.length}
+      </p>
 
-      {props.status ? null : (
-        <button className="btn btn-success mr-1" onClick={props.forDone}>
-          <i className="fas fa-check"></i>
-        </button>
-      )}
-      <button className="btn btn-primary" onClick={props.forDelete}>
-        <i className="fas fa-trash"></i>
-      </button>
+      {props.tasks.map(tasksItem => {
+        return (
+          <TaskItem
+            status={tasksItem.complite}
+            key={tasksItem.id}
+            name={tasksItem.name}
+            forDone={() => props.forDone(tasksItem.id)}
+            forDelete={() => props.forDelete(tasksItem.id)}
+          />
+        );
+      })}
     </div>
   );
 };
